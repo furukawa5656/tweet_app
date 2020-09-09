@@ -3,10 +3,15 @@
     <h1 class="form-heading">投稿する</h1>
     <div class="form">
       <div class="form-body">
+      	<% @post.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
       	<%= form_tag("/posts/create") do %>
  <!-- <textarea>タグにname属性を指定すると、入力データを送信することができるようになり、name属性の値をキーとしたハッシュがRails側に送られます。 -->
       	　 <!-- textフォーム -->
-      	  <textarea name="content"></textarea>
+      	  <textarea name="content"><%= @post.content %></textarea>
 	       <!-- 投稿ボタン -->
 	      <input type="submit" value="投稿">
         <% end %>

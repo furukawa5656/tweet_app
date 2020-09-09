@@ -26,7 +26,39 @@ class PostsController < ApplicationController
   	# 用意する代わりにredirec_toを使って代用
   	@post = Post.new(content: params[:content])
   	if @post.save
+  		flash[:notice] = "投稿を作成しました"
   		redirect_to "/posts/index"
+  	else
+  		#renderの場合はurlで呼び出さず("フォルダ名/ファイル名") で呼び出す
+		#※ ファイル名の部分には拡張子（.html.erb）を書かなくても大丈夫です
+  		render "posts/new"
   	end
   end
+
+  def edit
+  	@post = Post.find_by(id: params[:id])
+  end
+
+  def update
+  	#まずは更新する投稿データをデータベースから取り出します
+  	@post = Post.find_by(id: params[:id])
+  	@post.content = params[:content]
+  	#updateメソッドにするとハッシュでキーとバリューを設定すれば更新可能
+  	#ルーティングをメソッドpatchに変更とhtmlのfor_tagのurlもメソッドpatchに変更必要
+  	#if @post.update(content: params[:content])
+  	if @post.save
+  		flash[:notice] = "投稿を編集しました"
+  		redirect_to "/posts/index"
+  	else
+  		render "posts/edit"
+  	end
+  end
+
+  def destroy
+  	@post = Post.find_by(id: params[:id])
+  	@post.destroy
+  	flash[:notice] = "投稿を削除しました"
+  	redirect_to "/posts/index"
+  end
+
 end

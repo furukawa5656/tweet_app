@@ -9,5 +9,9 @@ Rails.application.routes.draw do
   get "posts/index" => "posts#index"
   get "posts/new" => "posts#new"
   post "posts/create" => "posts#create"
+  #どの投稿の編集ページか判別するためにidが必要
+  get "posts/:id/edit" => "posts#edit"
+  post "posts/:id/update" => "posts#update"
+  delete "posts/:id/destroy" => "posts#destroy"
   get "posts/:id" => "posts#show"
 end
