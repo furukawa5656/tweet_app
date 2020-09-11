@@ -4,7 +4,12 @@
       <img src="<%= "/user_images/#{@user.image_name}" %>">
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <%= link_to "編集", "/users/#{@user.id}/edit" %>
+<!-- ログインしているユーザーではない場合には編集ページへのリンクを非表示
+@userと@current_userのそれぞれのidが等しいかどうかで、表示するか否かを判断 -->
+      <% if @user.id == @current_user.id %>
+      	<%= link_to "編集", "/users/#{@user.id}/edit" %>
+      <% end %>
     </div>
   </div>
 </div>
+

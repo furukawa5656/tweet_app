@@ -1,0 +1,26 @@
+
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">ログイン</div>
+    <div class="form users-form">
+      <div class="form-body">
+        <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+        <!-- （link_toメソッドではデフォルトでgetのルーティングを探し、form_tagメソッドがデフォルトでpostのルーティングを探します。） -->
+        <%= form_tag("/login") do %>
+          <p>メールアドレス</p>
+          <input name="email">
+          <p>パスワード</p>
+          <!-- inputタグにtype属性を指定すると伏字になる -->
+          <input name="password" type="password">
+          <input type="submit" value="ログイン">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

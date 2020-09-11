@@ -3,4 +3,5 @@ class User < ApplicationRecord
 	validates :email, presence: true,
 					  uniqueness: true
 					  #重複がないかをチェック
+	validates :password, presence: true
 end

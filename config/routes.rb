@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get "users/:id/edit" => "users#edit"
   post "users/create" => "users#create"
   post "users/:id/update" => "users#update"
+  get "login" => "users#login_form"
+  post "login" => "users#login"
+  post "logout" => "users#logout"
   delete "users/:id/destroy" => "users#destroy"
 
   #URLの部分は好きに変更可能です
