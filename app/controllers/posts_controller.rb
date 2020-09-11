@@ -5,6 +5,7 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
   	#orderメソッドを用いることで、投稿一覧を並び替える
@@ -13,10 +14,12 @@ class PostsController < ApplicationController
   end
 
   def show
+    #ハッシュを使用している。下と同義
+    #ハッシュのキーをidに指定、取ってくるバリューをパラメーターのidで取得
+    #@post = Post.find_by(:id => params[:id])
   	@post = Post.find_by(id: params[:id])
-  	#ハッシュを使用している。下と同義
-  	#ハッシュのキーをidに指定、取ってくるバリューをパラメーターのidで取得
-  	#@post = Post.find_by(:id => params[:id])
+    #post.rb記載のインスタンスメソッド
+    @user = @post.user
   end
 
   def new
@@ -27,7 +30,10 @@ class PostsController < ApplicationController
   	# createアクションのviewがない
   	# 使わないからviewを用意していない
   	# 用意する代わりにredirec_toを使って代用
-  	@post = Post.new(content: params[:content])
+  	@post = Post.new(content: params[:content],
+                    #新規投稿作成時に、user_idの値をいれて保存
+                     user_id: @current_user.id
+                     )
   	if @post.save
   		flash[:notice] = "投稿を作成しました"
   		redirect_to "/posts/index"
@@ -64,4 +70,24 @@ class PostsController < ApplicationController
   	redirect_to "/posts/index"
   end
 
+  def ensure_correct_user
+#投稿に紐づくユーザーと現在ログインしているユーザーが異なるかどうかを比べるために、
+#postsコントローラ内に「ensure_correct_user」というメソッドを用意
+    @post = Post.find_by(id: params[:id])
+    if @post.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to "/posts/index"
+    end
+  end
+
 end
+
+
+
+
+
+
+
+
+
+

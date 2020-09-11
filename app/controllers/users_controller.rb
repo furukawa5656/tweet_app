@@ -75,8 +75,8 @@ class UsersController < ApplicationController
       redirect_to "/posts/index"
     else
       #renderメソッドによってログインページが再表示されたときに、直前に入力したメールアドレスとパスワードが初期値としてセット
-      @email = @params[:email]
-      @password = @params[:password]
+      @email = params[:email]
+      @password = params[:password]
       #今回のエラーメッセージはバリデーションのエラーメッセージとは異なり、「find_byメソッドで検索したが存在しなかった」という結果を伝えるためのも
       @error_message = "メールアドレスまたはパスワードが間違っています"
       render :login_form
