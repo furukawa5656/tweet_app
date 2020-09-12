@@ -62,11 +62,12 @@ class UsersController < ApplicationController
   end
 
   def login
-    #パラメーターで送れたてきたemailとpasswordでテーブルの中からuserを見つけてくる
-    #また、テーブルの中にemailとpasswordで該当するuserがいればログイン、いなければログインできない条件分岐
-    @user = User.find_by(email: params[:email],
-                          password: params[:password])
-    if @user
+    #パラメーターで送れたてきたemailでテーブルの中からuserを見つけてくる
+    #また、テーブルの中にemailとで該当するuserがいればログイン、いなければログインできない条件分岐
+    @user = User.find_by(email: params[:email])
+    #has_secure_passwordメソッドを有効にすると、authenticateメソッドを使えるようになります。
+    #authenticateメソッドは渡された引数を暗号化し、password_digestの値と一致するかどうかを判定してくれます。
+    if @user && @user.authenticate(params[:password])
       #user_idをキーとし、値を代入します。
       #@userが存在する場合に変数sessionに@user.idを代入することで、
       #特定したログインユーザーの情報が保持され続けます。

@@ -60,3 +60,35 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+#bcryptという「暗号化するためのgem」
+gem 'bcrypt'
+
+
+
+
+
+
+#「gem 'gemの名前', 'gemのバージョン'」とすることで記述したバージョンのgemをインストールすることが可能です。
+#バージョンを指定しない場合は、最新のgemがインストールされます。
+#デフォルトでコメントアウトしてあるbcriptがある。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
