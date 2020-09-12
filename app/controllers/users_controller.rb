@@ -89,6 +89,11 @@ class UsersController < ApplicationController
     redirect_to "/login"
   end
 
+  def likes
+    @user = User.find_by(id: params[:id])
+    @likes = Like.where(user_id: @user.id)
+  end
+
   def ensure_correct_user
 #ログイン中のユーザーのidと編集したいユーザーのidが等しいか判定します。
 #ログイン中のユーザーのidは@current_user.idに、編集したいユーザーのidはparams[:id]にそれぞれ代入されています。

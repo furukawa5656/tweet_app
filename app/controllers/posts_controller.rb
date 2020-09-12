@@ -20,6 +20,9 @@ class PostsController < ApplicationController
   	@post = Post.find_by(id: params[:id])
     #post.rb記載のインスタンスメソッド
     @user = @post.user
+#likesテーブルからデータの件数を取得するには、countメソッドを用います。
+#countメソッドは配列の要素数を取得するメソッドですが、テーブルのデータ数を取得するためにも利用することができます。
+    @likes_count = Like.where(post_id: @post.id).count
   end
 
   def new
